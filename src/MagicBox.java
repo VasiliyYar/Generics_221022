@@ -1,49 +1,67 @@
 import java.util.Random;
 
-public class MagicBox <T> {
+public class MagicBox<T> {
 
     protected String nameMagicBox;// имя Магичесокой коробки
     protected int maxObjects;
-    protected Object[] objects; // сохранение элементов в коробке
+    //protected Object[] objects; // сохранение элементов в коробке
+    T[] objects = (T[]) new Object[maxObjects];
 
-    public MagicBox (String nameMagicBox, int maxObjects) {
+    public MagicBox(String nameMagicBox, int maxObjects) {
         this.nameMagicBox = nameMagicBox;
-        this.objects = new Object[maxObjects];
+        this.objects = (T[]) new Object[maxObjects];
     }
 
-    public boolean add (T item) {
+    public boolean add(T item) {
 
+        int n = 1;//номер ячейки
         for (int i = 0; i < objects.length; i++) {
+            n++;
             if (objects[i] == null) {
                 objects[i] = item;
-                System.out.println("Заполнена ячейка №"+i+":");
+                System.out.println("Заполняем магическую коробку: " + getNameMagicBox());
+                System.out.println("Заполнена ячейка №" + (i + 1) + ", элементом = (" + item + ")");
+                n = i + 1;
                 return true;
             }
         }
-        System.out.println("Коробка заполнена");
+        System.out.println("Заполнена последняя ячейка " + "№" + n);
+        System.out.println("Магическая коробка <" + getNameMagicBox() + "> заполнена. ");
         return false;
-
     }
 
-    public int pick (T item) {
-        if (add(item)==true) {
-            int n = 0;
-            for (int i = 0; i < objects.length; i++) {
-                if (objects[i] == null) {
-                    n = n + 1;
+    public T pick() {
+        int number = 0;
+        int numberFull = 0;
+
+        String text = null;
+        for (int i = 0; i < objects.length; i++) {
+
+            if (objects[i] == null) {
+
+                number++;
+
+                throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + ((objects.length + 1) - number));
+
+            } else {
+                numberFull++;
+
+                if (numberFull == (objects.length)) {
+                    Random random = new Random();
+                    int randomInt = random.nextInt(maxObjects);
                 }
 
+
             }
-           throw new RuntimeException("Коробка не полна и осталось еще заполнить - " + n + " ячеек");
 
-        } else {
-            Random random = new Random();
-            int randomInt = random.nextInt(maxObjects); // джава подберёт случайное число от 0 до ЧИСЛО невключительно
 
-            return randomInt;
         }
+        String result = text;
+        System.out.println(result);
+        return (T) result;
 
     }
+
     public String getNameMagicBox() {
         return nameMagicBox;
     }
