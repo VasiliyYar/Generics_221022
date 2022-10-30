@@ -33,33 +33,31 @@ public class MagicBox<T> {
     public T pick() {
         int number = 0;
         int numberFull = 0;
-
         String text = null;
         for (int i = 0; i < objects.length; i++) {
-
             if (objects[i] == null) {
-
                 number++;
 
-                throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + ((objects.length + 1) - number));
-
+                try {
+                    throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + (number + 1));
+                } catch (RuntimeException e) {
+                    text = e.getMessage();
+                }
             } else {
                 numberFull++;
 
                 if (numberFull == (objects.length)) {
+                    text = "Коробка заполнена";
                     Random random = new Random();
-                    int randomInt = random.nextInt(maxObjects);
+                    int randomInt = random.nextInt(objects.length);
+                    objects[randomInt] = null;
+                    System.out.println("Ячейка №" + (randomInt + 1) + " теперь пуста");
                 }
-
-
             }
-
-
         }
         String result = text;
         System.out.println(result);
         return (T) result;
-
     }
 
     public String getNameMagicBox() {
