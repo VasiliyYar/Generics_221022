@@ -18,32 +18,28 @@ public class Main {
         System.out.println("Две магичесие коробки с названиями Слово и Число");
         System.out.println("Количество ячеек в каждой коробке = " + (n + 1) + " ячейки");
         System.out.println("Элементы для заполения коробок: или <слово> или <число>. Оба элимента в одной коробке быть не могут");
-        System.out.println("Вначале ведите любой элемент на консоли для определения типа элемента:");
+
 
         while (true) {
             String input = scanner.nextLine();
             if ("end".equals(input)) {
                 break;
+            }
 
-            } else if (scanner.hasNextInt()) {
-
-                int item = scanner.nextInt();
-                magicBox1.add(item);
+            try {
+                int value = Integer.parseInt(input);
+                magicBox1.add(value);
                 magicBox1.pick();
+            } catch (NumberFormatException e) {
 
-
-            } else {
-                String item = scanner.nextLine();
+                String item = input;
                 magicBox2.add(item);
                 magicBox2.pick();
-
-
             }
+
 
         }
     }
-
-
 }
 
 

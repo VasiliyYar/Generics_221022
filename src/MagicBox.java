@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class MagicBox<T> {
 
-    protected String nameMagicBox;// имя Магичесокой коробки
+    protected String nameMagicBox;// имя Магической коробки для вывода названия заполняемой коробки в консоли
     protected int maxObjects;
-    //protected Object[] objects; // сохранение элементов в коробке
-    T[] objects = (T[]) new Object[maxObjects];
+    protected T[] objects;
+
 
     public MagicBox(String nameMagicBox, int maxObjects) {
         this.nameMagicBox = nameMagicBox;
@@ -30,31 +30,33 @@ public class MagicBox<T> {
         return false;
     }
 
+
     public T pick() {
         int number = 0;
         int numberFull = 0;
         String text = null;
-        for (int i = 0; i < objects.length; i++) {
-            if (objects[i] == null) {
-                number++;
+        try {
+            for (int i = 0; i < objects.length; i++) {
+                if (objects[i] == null) {
+                    number++;
 
-                try {
-                    throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + (number + 1));
-                } catch (RuntimeException e) {
-                    text = e.getMessage();
-                }
-            } else {
-                numberFull++;
+                } else {
+                    numberFull++;
 
-                if (numberFull == (objects.length)) {
-                    text = "Коробка заполнена";
-                    Random random = new Random();
-                    int randomInt = random.nextInt(objects.length);
-                    objects[randomInt] = null;
-                    System.out.println("Ячейка №" + (randomInt + 1) + " теперь пуста");
+                    if (numberFull == (objects.length)) {
+                        text = "Коробка заполнена";
+                        Random random = new Random();
+                        int randomInt = random.nextInt(objects.length);
+                        objects[randomInt] = null;
+                        System.out.println("Ячейка №" + (randomInt + 1) + " теперь пуста");
+                    }
                 }
             }
+            throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + (number + 1));
+        } catch (RuntimeException e) {
+            text = e.getMessage();
         }
+
         String result = text;
         System.out.println(result);
         return (T) result;
@@ -68,6 +70,13 @@ public class MagicBox<T> {
         return maxObjects;
     }
 
+    public T[] getObjects() {
+        return objects;
+    }
+
+    public void setObjects(T[] objects) {
+        this.objects = objects;
+    }
 
 }
 
