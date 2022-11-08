@@ -31,14 +31,16 @@ public class MagicBox<T> {
     }
 
 
-    public T pick() {
+    public T pick() throws RuntimeException  {
         int number = 0;
         int numberFull = 0;
         String text = null;
-        try {
+        //try {
             for (int i = 0; i < objects.length; i++) {
                 if (objects[i] == null) {
-                    number++;
+
+                    //number++;
+                    throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + (objects.length-i ));
 
                 } else {
                     numberFull++;
@@ -52,11 +54,11 @@ public class MagicBox<T> {
                     }
                 }
             }
-            throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + (number + 1));
-        } catch (RuntimeException e) {
-            text = e.getMessage();
-        }
 
+        //}
+        // catch (RuntimeException e) {
+         //   text = getMessage();
+       // }
         String result = text;
         System.out.println(result);
         return (T) result;
