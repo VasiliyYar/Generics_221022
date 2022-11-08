@@ -30,7 +30,7 @@ public class Main {
                 int value = Integer.parseInt(input);
                 magicBox1.add(value);
                 try {
-                magicBox1.pick();
+                    magicBox1.pick();
                 } catch (RuntimeException k) {
                     System.out.println(k);
                 }
@@ -39,15 +39,12 @@ public class Main {
                 String item = input;
                 magicBox2.add(item);
                 try {
-                magicBox2.pick();
+                    magicBox2.pick();
                 } catch (RuntimeException m) {
                     System.out.println(m);
 
                 }
-
             }
-
-
         }
     }
 }

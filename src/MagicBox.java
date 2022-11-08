@@ -31,34 +31,31 @@ public class MagicBox<T> {
     }
 
 
-    public T pick() throws RuntimeException  {
-        int number = 0;
+    public T pick() throws RuntimeException {
+
         int numberFull = 0;
         String text = null;
         //try {
-            for (int i = 0; i < objects.length; i++) {
-                if (objects[i] == null) {
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] == null) {
 
-                    //number++;
-                    throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + (objects.length-i ));
 
-                } else {
-                    numberFull++;
+                throw new RuntimeException("Коробка еще не полна. Незаполнено ячеек: " + (objects.length - i));
 
-                    if (numberFull == (objects.length)) {
-                        text = "Коробка заполнена";
-                        Random random = new Random();
-                        int randomInt = random.nextInt(objects.length);
-                        objects[randomInt] = null;
-                        System.out.println("Ячейка №" + (randomInt + 1) + " теперь пуста");
-                    }
+            } else {
+                numberFull++;
+
+                if (numberFull == (objects.length)) {
+                    text = "Коробка заполнена";
+                    Random random = new Random();
+                    int randomInt = random.nextInt(objects.length);
+                    objects[randomInt] = null;
+                    System.out.println("Ячейка №" + (randomInt + 1) + " теперь пуста");
                 }
             }
+        }
 
-        //}
-        // catch (RuntimeException e) {
-         //   text = getMessage();
-       // }
+
         String result = text;
         System.out.println(result);
         return (T) result;
